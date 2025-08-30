@@ -98,7 +98,18 @@ class ConjunctInput(ttk.Frame):
             def func(x): return eval(
                 func_str,
                 {"__builtins__": {}},
-                {"x": x, "fibonacci": functions.fibonacci})
+                {
+                    "x": x,
+                    "fibonacci": functions.fibonacci,
+                    "par": functions.even,
+                    "impar": functions.odd,
+                    "div": functions.div,
+                    "mult": functions.mult,
+                    "potencia": functions.pow,
+                }
+
+
+            )
 
             x_0 = int(x_0_str)
             x_f = int(x_f_str)
