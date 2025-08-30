@@ -1,4 +1,12 @@
 from src.logger import logger
+from src.view.views.app import App
 
 
-logger.debug("Hello world")
+def run():
+    logger.debug(f"Iniciando main.run")
+    app = App()
+    app.mainloop()
+
+
+if __name__ == "__main__":
+    run()

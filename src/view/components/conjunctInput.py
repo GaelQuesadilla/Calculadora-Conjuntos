@@ -7,19 +7,20 @@ from ttkbootstrap.dialogs import Messagebox
 from src.utils import functions
 
 
-class conjunctInput(ttk.Frame):
+class ConjunctInput(ttk.Frame):
     def __init__(
             self,
             master=None,
             conjunct=Conjunct(),
-            onUpdate: Callable = lambda: logger.warning("Empty method")
+            onGeneration: Callable = lambda: logger.warning("Empty method")
     ):
         super().__init__(master)
         self.config(width=10)
         # ? Save values
         self.conjunct = conjunct
-        self.onUpdate = onUpdate
+        self.onGeneration = onGeneration
 
+        title = ttk.Label(self, text=f"Conjunto {conjunct.name}")
         # ? Generate layout
         inputFrame = ttk.Frame(self)
         self.commandsFrame = ttk.Frame(self)
@@ -27,6 +28,7 @@ class conjunctInput(ttk.Frame):
         self.valueFrame = ttk.Frame(inputFrame)
 
         # ? Pack
+        title.pack()
         inputFrame.pack(side=ttk.LEFT)
         self.commandsFrame.pack(side=ttk.LEFT)
 
@@ -103,7 +105,7 @@ class conjunctInput(ttk.Frame):
             step = int(step_str)
             values: List[float] = [func(x) for x in range(x_0, x_f, step)]
             self.conjunct.values = set(values)
-            self.onUpdate()
+            self.onGeneration()
 
             logger.debug(f"Conjunto generado: {self.conjunct.values}")
 
@@ -136,6 +138,6 @@ class conjunctInput(ttk.Frame):
 
 if __name__ == "__main__":
     view = Window()
-    component = conjunctInput(view)
+    component = ConjunctInput(view)
     component.pack()
     view.mainloop()
