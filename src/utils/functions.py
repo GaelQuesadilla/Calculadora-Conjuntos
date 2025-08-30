@@ -5,3 +5,7 @@ def fibonacci(n):
 
 def pairs(n):
     return 2*n
+
+
+def odd(n):
+    return 2*n - 1
