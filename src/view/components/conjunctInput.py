@@ -86,7 +86,7 @@ class ConjunctInput(ttk.Frame):
         x_f_str = self.entryMax.get()
         step_str = self.entryStep.get()
 
-        if not func_str or not x_0_str or not x_0_str or not step_str:
+        if not func_str or not x_0_str or not x_f_str or not step_str:
             Messagebox.show_error(
                 "No se cuenta con todos los valores para definir el conjunto")
             logger.error(
@@ -95,7 +95,7 @@ class ConjunctInput(ttk.Frame):
 
         try:
 
-            def func(x): return eval(
+            def func(x: int): return eval(
                 func_str,
                 {"__builtins__": {}},
                 {
@@ -114,7 +114,26 @@ class ConjunctInput(ttk.Frame):
             x_0 = int(x_0_str)
             x_f = int(x_f_str)
             step = int(step_str)
-            values: List[float] = [func(x) for x in range(x_0, x_f, step)]
+
+            try:
+                evaluated = eval(
+                    func_str,
+                    {"__builtins__": {}})
+
+                if not isinstance(evaluated, list):
+                    raise TypeError
+
+                logger.debug(f"Método ingresado de tipo lista")
+                values = evaluated
+
+            except Exception as e:
+
+                if callable(func):
+                    logger.debug(f"Método ingresado de tipo función")
+                    values: List[float] = [
+                        func(x)for x in range(x_0, x_f, step)
+                    ]
+
             self.conjunct.values = set(values)
             self.onGeneration()
 
