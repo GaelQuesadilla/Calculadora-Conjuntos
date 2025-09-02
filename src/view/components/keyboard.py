@@ -31,7 +31,8 @@ class Keyboard(ttk.Frame):
             self,
             style=ttk.SECONDARY,
             text="Diferencia A,B",
-            command=lambda: self._set_operation("difference", self.difference)
+            command=lambda: self._set_operation(
+                "Diferencia A,B", self.difference)
         )
         self.intersectionBtn = ttk.Button(
             self,
@@ -43,7 +44,7 @@ class Keyboard(ttk.Frame):
         self.symmetricDifferenceBtn = ttk.Button(
             self,
             style=ttk.SECONDARY,
-            text="symmetricDifference",
+            text="Diferencia simétrica A,B",
             command=lambda: self._set_operation(
                 "Diferencia simétrica A,B", self.symmetricDifference)
         )
@@ -52,14 +53,14 @@ class Keyboard(ttk.Frame):
             style=ttk.SECONDARY,
             text="Disyuntiva A,B",
             command=lambda: self._set_operation(
-                "disjunctive", self.disjunctive)
+                "Disyuntiva A,B", self.disjunctive)
         )
         self.symmetricProductBtn = ttk.Button(
             self,
             style=ttk.SECONDARY,
             text="Producto simetrico A,B",
             command=lambda: self._set_operation(
-                "symmetricProduct", self.symmetricProduct)
+                "Producto simétrico A,B", self.symmetricProduct)
         )
 
         buttons = [

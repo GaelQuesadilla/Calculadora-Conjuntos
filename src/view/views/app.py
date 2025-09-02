@@ -37,7 +37,7 @@ class App(Window):
         self.container.grid_columnconfigure(1, weight=5)
 
         self.leftFrame.grid(row=0, column=0, sticky=ttk.NS)
-        self.rightFrame.grid(row=0, column=1, sticky=ttk.NSEW)
+        self.rightFrame.grid(row=0, column=1, sticky=ttk.NSEW, padx=5)
 
         for conjunct in self.conjunctDisplays:
             conjunct.pack()

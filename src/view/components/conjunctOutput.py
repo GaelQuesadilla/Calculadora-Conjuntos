@@ -34,7 +34,7 @@ class ConjunctOutput(ttk.Frame):
             except Exception:
                 display = str(values)
 
-        self._text.configure(state="normal", height=3)
+        self._text.configure(state="normal", height=5)
         self._text.delete("1.0", ttk.END)
         self._text.insert(ttk.END, display)
         self._text.configure(state="disabled")
