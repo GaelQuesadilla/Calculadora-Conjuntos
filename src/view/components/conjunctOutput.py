@@ -7,15 +7,25 @@ from src.view.components.window import Window
 class ConjunctOutput(ttk.Frame):
 
     def __init__(self, master=None, conjunct=Conjunct()):
+        """Muestra un conjunto
+
+        Parameters
+        ----------
+        master : _type_, optional
+            Componente padre, by default None
+        conjunct : Conjunct, optional
+            El conjunto a mostrar, by default Conjunct()
+        """
         super().__init__(master)
         self.conjunct = conjunct
 
+        # ? Contenedor
         box_frame = ttk.Frame(self, relief=ttk.SOLID, padding=3)
         box_frame.pack(fill=ttk.X, expand=True)
 
+        # ? Texto que representa el conjunto
         self._text = ttk.Text(
             box_frame, width=30)
-
         self._text.pack(side=ttk.LEFT, fill=ttk.X, expand=True)
 
         self.update()

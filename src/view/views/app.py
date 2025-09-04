@@ -11,6 +11,8 @@ from ttkbootstrap.dialogs import Messagebox
 class App(Window):
 
     def __init__(self):
+        """Contiene la aplicación
+        """
 
         super().__init__()
 
@@ -29,9 +31,9 @@ class App(Window):
         )
         self.resultLabel = ttk.Label(self.rightFrame, text=self.keyboard.label)
 
-        # ? grid
+        # ? Se estructura el proyecto con grid (cuadricula)
 
-        # ? Left frame
+        # ? Sección izquierda
         self.container.grid_rowconfigure(0, weight=1)
         self.container.grid_columnconfigure(0, weight=1)
         self.container.grid_columnconfigure(1, weight=5)
@@ -42,7 +44,7 @@ class App(Window):
         for conjunct in self.conjunctDisplays:
             conjunct.pack()
 
-        # ? Right frame
+        # ? Sección derecha
         self.rightFrame.grid_columnconfigure(0, weight=1)
         self.rightFrame.grid_rowconfigure(0, weight=1)
         self.rightFrame.grid_rowconfigure(1, weight=19)
@@ -52,10 +54,14 @@ class App(Window):
         self.outputDisplay.grid(row=1, column=0, sticky=ttk.NSEW)
         self.keyboard.grid(row=2, column=0, sticky=ttk.NSEW)
 
-    def createConjunctPack(self, name: str):
+    def createConjunctPack(self, name: str) -> Conjunct:
+        """Crea un conjunto con cuadros de entrada y salida
+        """
         return ConjunctDisplay(self.leftFrame, name=name, updateOutput=self.updateOutput)
 
     def calcOutput(self):
+        """Calcula el resultado
+        """
         try:
             self.outputDisplay.conjunct = self.keyboard.currentOperation(
                 self.conjunctDisplays[0].conjunct,
@@ -68,9 +74,13 @@ class App(Window):
             )
 
     def updateLabel(self):
+        """Actualiza el texto del resultado al nombre de la operación
+        """
         self.resultLabel.config(text=self.keyboard.label)
 
     def updateOutput(self):
+        """Actualiza el resultado
+        """
         self.calcOutput()
         self.updateLabel()
         self.outputDisplay.update()

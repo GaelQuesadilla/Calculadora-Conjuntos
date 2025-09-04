@@ -2,12 +2,13 @@ import ttkbootstrap as ttk
 from typing import Callable, Any, Optional
 from src.logger import logger
 from src.controller.controllers.operations import Operations
+from src.model.models.conjunct import Conjunct
 
 
 class Keyboard(ttk.Frame):
     """
-    Keyboard simple con 6 botones definidos en el init.
-    Cada botón al pulsarse guarda la operación en self.currentOption.
+    Teclado simple con 6 botones para las operaciones solicitadas
+    Calcula el conjunto resultado cada vez que se da click
     """
 
     def __init__(
@@ -15,12 +16,24 @@ class Keyboard(ttk.Frame):
             onUpdateOperation: Callable = lambda: logger.warning(
                 "onUpdateOperation Vacío")
     ):
+        """Constructor del teclado
+
+        Parameters
+        ----------
+        master : _type_, optional
+            Padre del componente, by default None
+        onUpdateOperation : _type_, optional
+            Operación que calcula el conjunto resultado, by default lambda:logger.warning( "onUpdateOperation Vacío")
+        """
         super().__init__(master)
 
         self.initializing = True
         self.onUpdateOperation = onUpdateOperation
+
+        # ?  Valor por defecto
         self._set_operation("Union A, B", self.union)
 
+        # ? Se agregan los botones
         self.unionBtn = ttk.Button(
             self,
             style=ttk.SECONDARY,
@@ -63,15 +76,18 @@ class Keyboard(ttk.Frame):
                 "Producto simétrico A,B", self.symmetricProduct)
         )
 
+        # ? Se guardan los botones en una lista para manejarla fácilmente
         buttons = [
             self.unionBtn, self.differenceBtn, self.intersectionBtn,
             self.symmetricDifferenceBtn, self.disjunctiveBtn, self.symmetricProductBtn
         ]
 
+        # ? Se meten los botones en la cuadrícula
         for i, btn in enumerate(buttons):
             r, c = divmod(i, 3)
             btn.grid(row=r, column=c, sticky=ttk.NSEW, padx=6, pady=6)
 
+        # ? Se configura la cuadrícula
         for c in range(3):
             self.grid_columnconfigure(c, weight=1)
         for r in range(2):
@@ -79,7 +95,16 @@ class Keyboard(ttk.Frame):
 
         self.initializing = False
 
-    def _set_operation(self, label: str, operation: Callable[[Any, Any], Any]):
+    def _set_operation(self, label: str, operation: Callable[[Conjunct, Conjunct], Conjunct]):
+        """Guarda los datos de la operación seleccionada
+
+        Parameters
+        ----------
+        label : str
+            Nombre de la operación
+        operation : Callable[[Conjunct, Conjunct], Conjunct]
+            Operación a ejecutar
+        """
         self.label = label
         self.currentOption = operation
 
@@ -90,28 +115,39 @@ class Keyboard(ttk.Frame):
 
         self.onUpdateOperation()
 
-    def currentOperation(self, A: Any, B: Any) -> Any:
-        """
-        Ejecuta la operación seleccionada sobre A y B.
+    def currentOperation(self, A: Conjunct, B: Conjunct) -> Conjunct:
+        """Realiza la operación seleccionada
+
+        Parameters
+        ----------
+        A : Conjunct
+            Primer conjunto
+        B : Conjunct
+            Segundo conjunto
+
+        Returns
+        -------
+        Conjunct
+            Conjunto resultado
         """
         if not self.currentOption:
             raise ValueError("No hay operación seleccionada.")
         return self.currentOption(A, B)
 
-    def union(self, A, B):
+    def union(self, A: Conjunct, B: Conjunct) -> Conjunct:
         return Operations.union(A, B)
 
-    def difference(self, A, B):
+    def difference(self, A: Conjunct, B: Conjunct) -> Conjunct:
         return Operations.difference(A, B)
 
-    def intersection(self, A, B):
+    def intersection(self, A: Conjunct, B: Conjunct) -> Conjunct:
         return Operations.intersection(A, B)
 
-    def symmetricDifference(self, A, B):
+    def symmetricDifference(self, A: Conjunct, B: Conjunct) -> Conjunct:
         return Operations.symmetricDifference(A, B)
 
-    def disjunctive(self, A, B):
+    def disjunctive(self, A: Conjunct, B: Conjunct) -> Conjunct:
         return Operations.disjunctive(A, B)
 
-    def symmetricProduct(self, A, B):
+    def symmetricProduct(self, A: Conjunct, B: Conjunct) -> Conjunct:
         return Operations.symmetricProduct(A, B)

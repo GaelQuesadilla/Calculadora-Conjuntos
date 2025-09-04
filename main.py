@@ -1,3 +1,4 @@
+"""Ejecuta la aplicación"""
 from src.logger import logger
 from src.view.views.app import App
 

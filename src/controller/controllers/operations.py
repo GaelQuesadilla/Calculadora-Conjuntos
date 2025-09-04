@@ -2,6 +2,8 @@ from src.model.models.conjunct import Conjunct
 
 
 class Operations:
+    """Controlador de operaciones, todos los elementos reciben dos conjuntos y se retorna un conjunto de resultado
+    """
 
     def union(A: Conjunct, B: Conjunct):
         result = Conjunct(name="Result")
