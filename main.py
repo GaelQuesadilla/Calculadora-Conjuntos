@@ -1,4 +1,10 @@
-"""Ejecuta la aplicación"""
+"""Ejecuta la aplicación
+
+Desarrollado por el equipo 4
+Héctor Jesús García Monroy
+Emiliano Hidalgo Gasca
+Gael González Méndez
+"""
 from src.logger import logger
 from src.view.views.app import App
 

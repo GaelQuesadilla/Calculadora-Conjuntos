@@ -41,7 +41,7 @@ class Operations:
         for x in A.values:
             if B.contains(x):
                 return Conjunct(name="Result", values=set(["Los conjuntos NO cumplen con la disyuntiva"]))
-        return Conjunct(name="Result", values=set(["Los conjuntos  cumplen con la disyuntiva"]))
+        return Conjunct(name="Result", values=set(["Los conjuntos SI cumplen con la disyuntiva"]))
 
     def symmetricProduct(A: Conjunct, B: Conjunct):
         result = Conjunct(name="Result")
